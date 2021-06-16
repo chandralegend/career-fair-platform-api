@@ -35,6 +35,8 @@ app.post("/api/v1/student", ({ body }, res) => {
 		}
 	})();
 });
+// TODO: Create Interview
+// TODO: Create Meeting using Google Calendar API
 
 // READ
 // get student info
@@ -61,9 +63,20 @@ app.get("/api/v1/company/:id", async (req, res) => {
 		res.status(500).send(error);
 	}
 });
+// TODO: Get all the companies
+// TODO: Get All Walkin Interviews
+// TODO: Get All Sessions - based on the students Preferences
+// TODO: Get All Students assigned to a Panel
+// TODO: Get Interviews for the panel
 
 // UPDATE
+// TODO: Update Student with CV_URL
+// TODO: Enable/Disable Walkin Interviews
+// TODO: Add Company Priority List (????)
+// TODO: Change Panel Status
+// TODO: Change Interview Status
 
 // DELETE
+// TODO: Remove Interview
 
 exports.app = functions.https.onRequest(app);
