@@ -1,4 +1,4 @@
-const { db } = require("./utils/admin");
+const { db } = require("../utils/admin");
 
 // create a student
 exports.createStudent = ({ body }, res) => {
@@ -45,7 +45,37 @@ exports.getCompany = async (req, res) => {
 	}
 };
 
-// TODO: Update student with cvURL - student_id, cv_url - status
-// TODO: Update Studnet with photoURL - student_id, cv_url - status
+// add or update student CV with cv storage handler
+exports.updateStudentCV = async (req, res) => {
+	const { id } = req.params;
+	const { cvUrl } = req.body;
+
+	try {
+		const student = await db.collection("students").doc(id).update({
+			cvUrl,
+		});
+		return res.sendStatus(200);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error);
+	}
+};
+
+// add or update student CV with photo storage handler
+exports.updateStudentPhoto = async (req, res) => {
+	const { id } = req.params;
+	const { photoUrl } = req.body;
+
+	try {
+		const student = await db.collection("students").doc(id).update({
+			photoUrl,
+		});
+		return res.sendStatus(200);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error);
+	}
+};
+
 // TODO: Update Student with Compnay Priority list - student_id, [company_id] - status
 // TODO: Get all the companies
