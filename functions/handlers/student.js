@@ -77,5 +77,20 @@ exports.updateStudentPhoto = async (req, res) => {
 	}
 };
 
-// TODO: Update Student with Compnay Priority list - student_id, [company_id] - status
-// TODO: Get all the companies
+// add or update company priority list
+exports.updateCompanyPriority = async (req, res) => {
+	const { id } = req.params;
+	const { company_list } = req.body;
+
+	try {
+		const student = await db.collection("students").doc(id).update({
+			company_list,
+		});
+		return res.sendStatus(200);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error);
+	}
+};
+
+// TODO: Get all the Companies uid and name
