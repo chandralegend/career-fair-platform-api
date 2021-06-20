@@ -61,15 +61,12 @@ exports.updateStudentCV = async (req, res) => {
 	}
 };
 
-// add or update student CV with photo storage handler
-exports.updateStudentPhoto = async (req, res) => {
+exports.updateStudentInfo = async (req, res) => {
 	const { id } = req.params;
-	const { photoUrl } = req.body;
+	const body = req.body;
 
 	try {
-		const student = await db.collection("students").doc(id).update({
-			photoUrl,
-		});
+		const student = await db.collection("students").doc(id).update(body);
 		return res.sendStatus(200);
 	} catch (error) {
 		console.log(error);
@@ -83,7 +80,7 @@ exports.updateCompanyPriority = async (req, res) => {
 	const { company_list } = req.body;
 
 	try {
-		const student = await db.collection("students").doc(id).update({
+		await db.collection("students").doc(id).update({
 			company_list,
 		});
 		return res.sendStatus(200);
@@ -93,4 +90,15 @@ exports.updateCompanyPriority = async (req, res) => {
 	}
 };
 
-// TODO: Get all the Companies uid and name
+exports.getAllCompanies = async (req, res) => {
+	try {
+		const companies = await db.collection("companies").get();
+		const companiesList = [];
+		companies.forEach((item) => {
+			companiesList.push({ id: item.id, ...item.data() });
+		});
+		res.status(200).json({ companiesList });
+	} catch (error) {
+		res.status(500).send(error);
+	}
+};
