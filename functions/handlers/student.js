@@ -2,7 +2,7 @@ const { db } = require("../utils/admin");
 
 // create a student
 exports.createStudent = ({ body }, res) => {
-	const { uuid, universityid, email, name, department, phone } = body;
+	const { uuid, universityid, email, name, department, phone, photoUrl } = body;
 	(async () => {
 		try {
 			await db.collection("students").doc(`/${uuid}/`).create({
@@ -11,6 +11,7 @@ exports.createStudent = ({ body }, res) => {
 				name,
 				department,
 				phone,
+				photoUrl,
 			});
 			return res.status(200).send();
 		} catch (error) {
