@@ -67,7 +67,7 @@ exports.updateStudentInfo = async (req, res) => {
 	const body = req.body;
 
 	try {
-		const student = await db.collection("students").doc(id).update(body);
+		await db.collection("students").doc(id).update(body);
 		return res.sendStatus(200);
 	} catch (error) {
 		console.log(error);
@@ -91,6 +91,30 @@ exports.updateCompanyPriority = async (req, res) => {
 	}
 };
 
+//get assigned sessions corresponding to a student
+exports.getAssignedSessions = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const sessions = await db
+			.collection("sessions")
+			.where("assigned_students", "array-contains", id)
+			.get();
+		const sessionsList = [];
+		sessions.forEach((session) => {
+			const session_data = session.data();
+			sessionsList.push({
+				id: session.id,
+				...session_data,
+			});
+		});
+		return res.status(200).json(sessionsList);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error);
+	}
+};
+
+//get all the companies
 exports.getAllCompanies = async (req, res) => {
 	try {
 		const companies = await db.collection("companies").get();
