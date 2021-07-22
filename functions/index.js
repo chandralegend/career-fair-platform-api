@@ -21,6 +21,11 @@ const {
 	getPanelSessions,
 } = require("./handlers/panel");
 
+const {
+	createMeeting,
+	createInterview
+} = require("./handlers/interview")
+
 const { updateInterview } = require("./handlers/interview");
 
 const app = express();
@@ -45,5 +50,9 @@ app.post("/v1/company/panel/updateavalabilty/:id", updatePanelAvailabilty);
 app.post("/v1/company/panel/updatewalkin/:id", updateWalkinStatus);
 app.post("/v1/company/interview/updateinterview/:id", updateInterview);
 app.get("/v1/company/panels/sessions/:id", getPanelSessions);
+
+//MEET
+app.post("/v1/interview/create", createInterview);
+app.post("/v1/meeting/create", createMeeting);
 
 exports.api = functions.https.onRequest(app);
