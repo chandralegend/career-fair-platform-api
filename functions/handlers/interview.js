@@ -7,7 +7,8 @@ const {
 // TODO: Remove Interview
 // TODO: Create Interview
 
-// This is not complete — A dummy interviews created to test created meet links
+// This is not complete — A dummy interview created to test created meet links.
+// Id of the doc should be changed before createing a meeting.
 exports.createInterview = async (req, res) => {
 	const { time } = req.body; //Time Example: '2021-07-22T02:00:20+05:30'
 	try {
@@ -36,7 +37,6 @@ exports.updateInterview = async (req, res) => {
 
 exports.createMeeting = async (req, res) => {
 	const { interviewId } = req.body;
-	console.log(interviewId);
 	try {
 		const interviewDoc = db.collection("interviews").doc(`/${interviewId}/`);
 		const interview = await interviewDoc.get();
