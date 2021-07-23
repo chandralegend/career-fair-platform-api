@@ -38,13 +38,9 @@ exports.updateInterview = async (req, res) => {
 };
 
 exports.createMeeting = async (req, res) => {
-	const { interviewId, sessionTime } = req.body;
+	const { interviewId, coordinatorEmail, studentName, companyName } = req.body;
 	try {
-		// const interviewDoc = db.collection("interviews").doc(`/${interviewId}/`);
-		// const interview = await interviewDoc.get();
-
-		//const conferenceInfo = await createMeet(new Date(interview.data().time)); //Example: '2021-07-22T02:00:20+05:30'
-		const conferenceInfo = await createMeet(new Date(sessionTime)); //Example: '2021-07-22T02:00:20+05:30'
+		const conferenceInfo = await createMeet(coordinatorEmail, studentName, companyName); //Example: '2021-07-22T02:00:20+05:30'
 		await db.collection("interviews").doc(`/${interviewId}/`).update({
 			meet_link: conferenceInfo.data.hangoutLink,
 		});
