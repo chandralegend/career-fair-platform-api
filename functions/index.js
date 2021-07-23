@@ -13,15 +13,9 @@ const {
 	getAssignedSessions,
 } = require("./handlers/student");
 
-const {
-	getPanel,
-	getAllPanels,
-	updatePanelAvailabilty,
-	updateWalkinStatus,
-	getPanelSessions,
-} = require("./handlers/panel");
+const { getPanel, getAllPanels, updatePanelAvailabilty, getPanelSessions } = require("./handlers/panel");
 
-const { updateInterview } = require("./handlers/interview");
+const {} = require("./handlers/interview");
 
 const app = express();
 app.use(cors({ origin: true }));
@@ -42,8 +36,6 @@ app.get("/v1/student/sessions/:id", getAssignedSessions);
 app.get("/v1/company/:id", getCompany);
 app.get("/v1/company/panels/:id", getAllPanels);
 app.post("/v1/company/panel/updateavalabilty/:id", updatePanelAvailabilty);
-app.post("/v1/company/panel/updatewalkin/:id", updateWalkinStatus);
-app.post("/v1/company/interview/updateinterview/:id", updateInterview);
 app.get("/v1/company/panels/sessions/:id", getPanelSessions);
 
 exports.api = functions.https.onRequest(app);

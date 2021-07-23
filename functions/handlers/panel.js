@@ -1,5 +1,3 @@
-// TODO: Get All Students assigned to a Session - panel_id
-
 const { db } = require("../utils/admin");
 
 //get Panel details
@@ -48,19 +46,13 @@ exports.updatePanelAvailabilty = async (req, res) => {
 	}
 };
 
-//change the walkin status of the panel
-exports.updateWalkinStatus = async (req, res) => {
-	try {
-		await db.collection("panels").doc(`/${req.params.id}/`).update({ isWalkinEnabled: req.body.status });
-		res.status(200).send();
-	} catch (error) {
-		res.status(500).send(error);
-	}
-};
-
 exports.getPanelSessions = async (req, res) => {
 	try {
-		const sessions_ref = await db.collection("sessions").where("panel_id", "==", req.params.id).get();
+		const sessions_ref = await db
+			.collection("sessions")
+			.where("panel_id", "==", req.params.id)
+			.orderBy("start_time", "asc")
+			.get();
 		const sessions = [];
 		sessions_ref.forEach((ref) => {
 			sessions.push({
