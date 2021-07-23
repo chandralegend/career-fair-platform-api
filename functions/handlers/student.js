@@ -95,10 +95,7 @@ exports.updateCompanyPriority = async (req, res) => {
 exports.getAssignedSessions = async (req, res) => {
 	const { id } = req.params;
 	try {
-		const sessions = await db
-			.collection("sessions")
-			.where("assigned_students", "array-contains", id)
-			.get();
+		const sessions = await db.collection("sessions").where("assigned_students", "array-contains", id).get();
 		const sessionsList = [];
 		sessions.forEach((session) => {
 			const session_data = session.data();
@@ -127,4 +124,3 @@ exports.getAllCompanies = async (req, res) => {
 		res.status(500).send(error);
 	}
 };
-
