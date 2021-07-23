@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { google } = require("googleapis");
 const { v4: uuidv4 } = require("uuid");
 const { data } = require("./coordinators");
