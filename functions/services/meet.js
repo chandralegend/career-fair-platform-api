@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { google } = require("googleapis");
 const { v4: uuidv4 } = require("uuid");
-const { data } = require("./cooardinators");
+const { data } = require("./coordinators");
 
 // Provide the required configuration
 //const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
